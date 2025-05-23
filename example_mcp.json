@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "ohcard-helper": {
+      "command": "python",
+      "args": [
+        "./ohcard.py"
+      ]
+    }
+  }
+} 

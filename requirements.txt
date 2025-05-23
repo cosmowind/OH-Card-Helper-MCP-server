@@ -1,0 +1,2 @@
+fastmcp>=2.4.0
+# asyncio和logging是Python内置模块，不需要单独安装 
