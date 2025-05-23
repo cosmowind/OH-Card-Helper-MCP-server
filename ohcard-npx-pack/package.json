@@ -1,0 +1,46 @@
+{
+  "name": "@cosmowind/ohcard-mcp",
+  "version": "1.0.4",
+  "description": "OH卡心理投射工具MCP服务器 - 通过图像探索内心世界，获得洞察和启发",
+  "main": "bin/index.js",
+  "bin": {
+    "ohcard-mcp": "bin/index.js"
+  },
+  "scripts": {
+    "start": "node bin/index.js",
+    "test": "echo \"暂无测试\" && exit 0"
+  },
+  "keywords": [
+    "mcp",
+    "ohcard",
+    "oh-cards",
+    "psychology",
+    "projection",
+    "self-exploration",
+    "mindfulness",
+    "divination",
+    "心理投射",
+    "OH卡",
+    "自我探索",
+    "npx"
+  ],
+  "author": "CosmoWind",
+  "license": "MIT",
+  "homepage": "https://github.com/cosmowind/ohcard-mcp",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cosmowind/ohcard-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cosmowind/ohcard-mcp/issues"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {},
+  "files": [
+    "bin/",
+    "README_npx.md",
+    "LICENSE"
+  ]
+} 
