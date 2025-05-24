@@ -1,0 +1,30 @@
+{
+  "name": "@cosmowind/ohcard-mcp-cloud",
+  "version": "1.0.0",
+  "description": "OH卡探索工具 - 云服务器MCP实现",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node src/index.js stdio",
+    "rest": "MODE=rest node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mcp",
+    "oh-cards",
+    "claude",
+    "psychology",
+    "cloud"
+  ],
+  "author": "cosmowind",
+  "license": "MIT",
+  "dependencies": {
+    "@chatmcp/sdk": "^1.0.0",
+    "express": "^5.1.0",
+    "node-fetch": "^3.3.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
