@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: ohcard-mcp-cloud
+    env: node
+    plan: starter # 免费层，可升级到 $7/月 的 starter 计划
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000  # Render 默认端口
+      - key: LOG_LEVEL
+        value: info
+    healthCheckPath: /health
+    
+    # 自动部署设置
+    autoDeploy: true
+    
+    # 域名设置（可选）
+    # domains:
+    #   - ohcard-mcp.onrender.com
+    
+    # 区域设置
+    region: oregon # 或者 ohio, frankfurt, singapore
+    
+    # 环境变量从 Render Dashboard 或这里设置
+    # 敏感信息应该通过 Render Dashboard 设置为 Secret Files 

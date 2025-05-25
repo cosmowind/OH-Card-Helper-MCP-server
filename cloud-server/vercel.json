@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/health",
+      "dest": "src/index.js"
+    },
+    {
+      "src": "/tools",
+      "dest": "src/index.js"
+    },
+    {
+      "src": "/tools/(.*)",
+      "dest": "src/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "src/index.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "LOG_LEVEL": "info"
+  },
+  "functions": {
+    "src/index.js": {
+      "maxDuration": 30
+    }
+  }
+} 

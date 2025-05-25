@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  ohcard-mcp:
+    build: .
+    container_name: ohcard-mcp-server
+    ports:
+      - "9593:9593"  # 对外端口:容器内端口
+    environment:
+      - NODE_ENV=production
+      - PORT=9593
+      - LOG_LEVEL=info
+    restart: unless-stopped
+    volumes:
+      - ./logs:/app/logs  # 日志持久化到宿主机
+    networks:
+      - ohcard-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9593/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    labels:
+      - "com.cosmowind.service=ohcard-mcp"
+      - "com.cosmowind.version=1.0.0"
+      - "com.cosmowind.description=OH卡探索工具云服务器"
+
+  # 可选：添加监控服务
+  # prometheus:
+  #   image: prom/prometheus:latest
+  #   container_name: ohcard-prometheus
+  #   ports:
+  #     - "9090:9090"
+  #   networks:
+  #     - ohcard-network
+
+networks:
+  ohcard-network:
+    driver: bridge
+
+# 可选：添加数据持久化
+# volumes:
+#   ohcard-logs:
+#     driver: local 
