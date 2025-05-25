@@ -1,4 +1,6 @@
-import { RestServerTransport } from "@chatmcp/sdk/server/rest.js";
+import { Server } from "@modelcontextprotocol/sdk/server/index.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
 import express from 'express';
 import {
   whatIsOhCards,
@@ -290,13 +292,172 @@ app.use((error, req, res, next) => {
   });
 });
 
+// 创建MCP服务器实例
+const mcpServer = new Server(
+  {
+    name: "ohcard-mcp-cloud",
+    version: "1.0.0",
+  },
+  {
+    capabilities: {
+      tools: {},
+    },
+  }
+);
+
+// 注册工具列表处理器
+mcpServer.setRequestHandler(ListToolsRequestSchema, async () => {
+  return {
+    tools: [
+      {
+        name: "what_is_oh_cards",
+        description: "介绍什么是OH卡",
+        inputSchema: {
+          type: "object",
+          properties: {},
+        },
+      },
+      {
+        name: "get_oh_card_process",
+        description: "获取OH卡抽取流程",
+        inputSchema: {
+          type: "object",
+          properties: {},
+        },
+      },
+      {
+        name: "draw_oh_card",
+        description: "抽取一张OH卡",
+        inputSchema: {
+          type: "object",
+          properties: {
+            intention: {
+              type: "string",
+              description: "用户的意图或想要探索的问题（可选）",
+            },
+          },
+        },
+      },
+      {
+        name: "get_guidance_questions",
+        description: "获取引导问题来帮助用户探索卡牌",
+        inputSchema: {
+          type: "object",
+          properties: {
+            question_type: {
+              type: "string",
+              description: "问题类型 (\"观察感受\", \"深入探索\", \"情境代入\", \"内心连接\", \"启发行动\", \"random\")",
+              default: "random",
+            },
+          },
+        },
+      },
+      {
+        name: "get_all_question_types",
+        description: "获取所有引导问题类型",
+        inputSchema: {
+          type: "object",
+          properties: {},
+        },
+      },
+      {
+        name: "get_all_cards_preview",
+        description: "获取所有OH卡的预览信息（仅显示图片URL）",
+        inputSchema: {
+          type: "object",
+          properties: {},
+        },
+      },
+    ],
+  };
+});
+
+// 注册工具调用处理器
+mcpServer.setRequestHandler(CallToolRequestSchema, async (request) => {
+  try {
+    const { name, arguments: args } = request.params;
+    
+    switch (name) {
+      case "what_is_oh_cards": {
+        const result = whatIsOhCards();
+        return {
+          content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
+          isError: false,
+        };
+      }
+      
+      case "get_oh_card_process": {
+        const result = getOhCardProcess();
+        return {
+          content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
+          isError: false,
+        };
+      }
+      
+      case "draw_oh_card": {
+        const { intention } = args || {};
+        const result = drawOhCard(intention);
+        return {
+          content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
+          isError: false,
+        };
+      }
+      
+      case "get_guidance_questions": {
+        const { question_type } = args || {};
+        const result = getGuidanceQuestions(question_type);
+        return {
+          content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
+          isError: false,
+        };
+      }
+      
+      case "get_all_question_types": {
+        const result = getAllQuestionTypes();
+        return {
+          content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
+          isError: false,
+        };
+      }
+      
+      case "get_all_cards_preview": {
+        const result = getAllCardsPreview();
+        return {
+          content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
+          isError: false,
+        };
+      }
+      
+      default:
+        throw new Error(`未知的工具: ${name}`);
+    }
+  } catch (error) {
+    return {
+      content: [
+        {
+          type: "text",
+          text: `错误: ${error instanceof Error ? error.message : String(error)}`,
+        },
+      ],
+      isError: true,
+    };
+  }
+});
+
 // 启动服务器
 async function startServer() {
-  const mode = getParamValue("mode") || "rest";
+  const mode = process.argv[2] || getParamValue("mode") || "rest";
   const port = parseInt(getParamValue("port")) || 9593;
   const env = process.env.NODE_ENV || 'development';
   
-  if (mode === "rest") {
+  if (mode === "stdio") {
+    // stdio模式 - 用于本地MCP客户端
+    const transport = new StdioServerTransport();
+    await mcpServer.connect(transport);
+    log('info', "🚀 OH卡MCP服务器启动成功 (stdio模式)");
+    
+  } else if (mode === "rest") {
+    // REST模式 - 用于云端部署
     const server = app.listen(port, '0.0.0.0', () => {
       log('info', `🚀 OH卡云服务器启动成功！`);
       log('info', `📡 HTTP API地址: http://0.0.0.0:${port}`);
@@ -326,7 +487,7 @@ async function startServer() {
     process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
     
   } else {
-    log('warn', "📋 stdio模式暂时不可用，请使用 npm run rest 测试REST API");
+    throw new Error(`未知的模式: ${mode}。请使用 'stdio' 或 'rest'`);
   }
 }
 

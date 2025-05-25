@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "ohcard-docker": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "ohcard-mcp-cloud:latest",
+        "stdio"
+      ]
+    }
+  }
+} 

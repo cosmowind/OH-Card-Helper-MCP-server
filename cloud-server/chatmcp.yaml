@@ -1,0 +1,62 @@
+params:
+  type: object
+  properties: {}
+  required: []
+
+rest:
+  name: ohcard-cloud
+  port: 9593
+  endpoint: /
+
+npx:
+  command: |
+    npx -y @cosmowind/ohcard-mcp
+  config: |
+    {
+      "mcpServers": {
+        "ohcard-helper": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "@cosmowind/ohcard-mcp"
+          ]
+        }
+      }
+    }
+
+docker:
+  command: |
+    docker run -i --rm -p 9593:9593 cosmowind/ohcard-mcp-cloud:latest
+  config: |
+    {
+      "mcpServers": {
+        "ohcard-cloud": {
+          "command": "docker",
+          "args": [
+            "run",
+            "-i",
+            "--rm",
+            "-p",
+            "9593:9593",
+            "cosmowind/ohcard-mcp-cloud:latest"
+          ]
+        }
+      }
+    }
+
+local:
+  command: |
+    node src/index.js stdio
+  config: |
+    {
+      "mcpServers": {
+        "ohcard-local": {
+          "command": "node",
+          "args": [
+            "src/index.js",
+            "stdio"
+          ],
+          "cwd": "/path/to/cloud-server"
+        }
+      }
+    } 

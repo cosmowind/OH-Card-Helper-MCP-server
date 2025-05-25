@@ -1,0 +1,44 @@
+{
+  "name": "ohcard-cloud-mcp",
+  "version": "1.0.0",
+  "description": "OH卡心理投射工具MCP服务器 - 云端托管版本，通过图像探索内心世界，获得洞察和启发",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc && node dist/index.js",
+    "test": "echo \"暂无测试\" && exit 0"
+  },
+  "keywords": [
+    "mcp",
+    "ohcard",
+    "oh-cards",
+    "psychology",
+    "projection",
+    "self-exploration",
+    "mindfulness",
+    "心理投射",
+    "OH卡",
+    "自我探索",
+    "cloud"
+  ],
+  "author": "CosmoWind",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.6.0",
+    "@chatmcp/sdk": "^1.0.6"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ]
+} 

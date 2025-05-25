@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "ohcard-powershell": {
+      "command": "powershell",
+      "args": [
+        "-ExecutionPolicy", "Bypass",
+        "-File", "F:\\sys\\programs\\mcp\\OH-Card-Helper-MCP-server\\cloud-server\\start_mcp.ps1"
+      ]
+    }
+  }
+} 

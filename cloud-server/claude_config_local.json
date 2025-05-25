@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "ohcard-local": {
+      "command": "node",
+      "args": [
+        "src/index.js",
+        "stdio"
+      ],
+      "cwd": "F:\\sys\\programs\\mcp\\OH-Card-Helper-MCP-server\\cloud-server"
+    }
+  }
+} 

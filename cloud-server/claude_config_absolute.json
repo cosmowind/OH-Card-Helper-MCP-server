@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "ohcard-absolute": {
+      "command": "node",
+      "args": [
+        "F:\\sys\\programs\\mcp\\OH-Card-Helper-MCP-server\\cloud-server\\src\\index.js",
+        "stdio"
+      ]
+    }
+  }
+} 

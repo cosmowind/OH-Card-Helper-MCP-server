@@ -5,10 +5,11 @@
   "type": "module",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node src/index.js rest",
     "dev": "node src/index.js stdio",
-    "rest": "MODE=rest node src/index.js",
+    "rest": "node src/index.js rest",
     "test": "node test_all_endpoints.js",
+    "test:mcp": "node test_mcp_config.js",
     "test:performance": "node test_performance.js",
     "test:performance:local": "TEST_URL=http://localhost:9593 node test_performance.js",
     "test:performance:cloud": "node test_performance.js",
@@ -40,7 +41,7 @@
   "author": "cosmowind",
   "license": "MIT",
   "dependencies": {
-    "@chatmcp/sdk": "^1.0.0",
+    "@modelcontextprotocol/sdk": "^1.12.0",
     "express": "^5.1.0",
     "node-fetch": "^3.3.2"
   },

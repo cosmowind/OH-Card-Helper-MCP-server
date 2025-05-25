@@ -169,12 +169,32 @@ npm run docker:run
 ```
 
 ### 云端部署 📋
+
+#### 阿里云服务器 + 宝塔面板部署
+```bash
+# 1. 在宝塔面板中安装Docker
+# 2. 构建生产镜像
+docker build -t ohcard-mcp-cloud:latest .
+
+# 3. 运行生产容器
+docker run -d --name ohcard-mcp \
+  -p 9593:9593 \
+  -e NODE_ENV=production \
+  --restart unless-stopped \
+  ohcard-mcp-cloud:latest
+
+# 4. 查看运行状态
+docker ps | grep ohcard-mcp
+docker logs ohcard-mcp
+```
+
+#### 其他云平台部署
 ```bash
 # 构建生产镜像
-docker build -t ohcard-mcp .
+docker build -t ohcard-mcp-cloud:latest .
 
 # 运行生产容器
-docker run -p 9593:9593 -e NODE_ENV=production ohcard-mcp
+docker run -p 9593:9593 -e NODE_ENV=production ohcard-mcp-cloud:latest
 ```
 
 ## 📊 监控指标
