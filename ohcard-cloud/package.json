@@ -1,8 +1,11 @@
 {
-  "name": "ohcard-cloud-mcp",
+  "name": "@cosmowind/ohcard-cloud-mcp",
   "version": "1.0.0",
   "description": "OH卡心理投射工具MCP服务器 - 云端托管版本，通过图像探索内心世界，获得洞察和启发",
   "main": "dist/index.js",
+  "bin": {
+    "ohcard-cloud-mcp": "dist/index.js"
+  },
   "type": "module",
   "scripts": {
     "build": "tsc",

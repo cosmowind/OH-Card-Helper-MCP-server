@@ -10,7 +10,7 @@ rest:
 
 npx:
   command:
-    | npx -y ohcard-cloud-mcp
+    | npx -y @cosmowind/ohcard-cloud-mcp
   config:
     | {
         "mcpServers": {
@@ -18,7 +18,7 @@ npx:
             "command": "npx",
             "args": [
               "-y",
-              "ohcard-cloud-mcp"
+              "@cosmowind/ohcard-cloud-mcp"
             ]
           }
         }
