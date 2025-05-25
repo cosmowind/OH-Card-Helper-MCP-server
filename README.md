@@ -1,63 +1,65 @@
-# OH卡探索工具 (OH Cards Explorer)
+# OH卡心理投射工具 MCP 服务器 (OH Cards MCP Server)
 
-这是一个多方案实现的OH卡探索工具项目，帮助用户通过OH卡进行自我探索和内心洞察，支持Claude Desktop等MCP客户端。
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![npm version](https://badge.fury.io/js/%40cosmowind%2Fohcard-cloud-mcp.svg)](https://badge.fury.io/js/%40cosmowind%2Fohcard-cloud-mcp)
 
-## 什么是OH卡？
+🌟 一个基于 MCP（Model Context Protocol）的 OH 卡心理投射工具服务器，提供多种部署方案，帮助用户通过 OH 卡进行自我探索和内心洞察。
 
-OH卡（Open Heart Cards）是一套心理投射工具，通过图像来帮助人们探索内心世界、获得洞察和启发。
+## 🎴 什么是 OH 卡？
 
-- 🎯 **投射工具**：通过图像投射内心状态
-- 🌟 **自我探索**：深入了解内在需求和感受
+OH 卡（Open Heart Cards）是一套心理投射工具，通过图像来帮助人们探索内心世界、获得洞察和启发。每个人对同一张卡的解读都是独特的，这正是它的魅力所在。
+
+### 核心价值
+- 🎯 **投射工具**：通过图像投射内心状态和感受
+- 🌟 **自我探索**：深入了解内在需求和潜意识
 - 💡 **启发思考**：从新角度看待问题和挑战
 - 🌈 **情感表达**：帮助表达难以言喻的感受
-- 🔮 **直觉连接**：激活内在智慧和直觉
+- 🔮 **直觉连接**：激活内在智慧和直觉洞察
 
-## 项目结构
+## 📁 项目结构
 
-本项目提供两种不同的MCP实现方案：
+本项目提供四种不同的 MCP 实现方案，满足不同的使用场景和部署需求：
 
 ```
 OH-Card-Helper-MCP-server/
-├── ohcard-fastmcp/         # FastMCP Python实现方案
-│   ├── ohcard.py          # 主要的MCP服务器
-│   ├── requirements.txt   # Python依赖
-│   ├── setup.py          # 安装配置
-│   ├── run.py            # 启动脚本
-│   ├── readme_fastmcp.md # FastMCP方案文档
-│   └── ...               # 其他支持文件
-├── ohcard-npx-pack/       # NPX包实现方案
-│   ├── bin/              # NPX可执行文件
-│   ├── package.json      # NPM包配置
-│   └── ...               # 其他NPX相关文件
-├── intro.md              # 项目介绍
-├── LICENSE               # 许可证
-└── README.md             # 本文件
+├── ohcard-fastmcp/         # 🐍 FastMCP Python 实现（最简单）
+├── ohcard-npx-pack/        # 📦 NPX 包实现（最方便）
+├── ohcard-cloud/           # ☁️ 云托管实现（可申请 MCP.so）
+├── cloud-server/           # 🐳 Docker 云部署（实验性，已废弃）
+├── intro.md               # 项目介绍
+├── LICENSE                # MIT 许可证
+└── README.md              # 本文件
 ```
 
-## 实现方案对比
+## 🚀 四种实现方案详解
 
-| 特性 | FastMCP方案 | NPX方案 |
-|------|-------------|---------|
-| **部署难度** | 中等（需Python环境） | 简单（一条命令） |
-| **依赖管理** | 需要pip安装fastmcp | 自动处理依赖 |
-| **启动方式** | python命令 | npx命令 |
-| **适用场景** | 开发者、定制需求 | 快速体验、简单部署 |
-| **扩展性** | 高（完全控制） | 中等（包装形式） |
-| **维护成本** | 高 | 低 |
+### 1. 🐍 ohcard-fastmcp - Python 版本（最简单）
+**适合：Python 开发者，快速本地部署**
 
-## 快速开始
-
-### 方案1：NPX包方式（推荐用于快速体验）
-
-最简单的使用方式，一条命令即可开始：
+- **技术栈**：Python + FastMCP 框架
+- **特点**：代码简洁，易于理解和修改
+- **部署**：本地 Python 环境运行
+- **优势**：开发门槛低，适合学习 MCP 开发
 
 ```bash
-# 直接通过NPX运行（推荐）
-npx @cosmowind/ohcard-mcp
+cd ohcard-fastmcp
+pip install -r requirements.txt
+python ohcard.py
 ```
 
-在Claude Desktop配置文件中添加：
-```json
+### 2. 📦 ohcard-npx-pack - NPX 包版本（最方便）
+**适合：普通用户，一键使用**
+
+- **技术栈**：Node.js + TypeScript
+- **特点**：零配置，一条命令即可使用
+- **部署**：通过 NPM 发布，npx 直接运行
+- **优势**：用户体验最佳，无需环境配置
+
+```bash
+# 直接使用（推荐）
+npx @cosmowind/ohcard-mcp
+
+# Claude Desktop 配置
 {
   "mcpServers": {
     "ohcard": {
@@ -68,103 +70,160 @@ npx @cosmowind/ohcard-mcp
 }
 ```
 
-### 方案2：FastMCP Python方式（推荐用于开发定制）
+### 3. ☁️ ohcard-cloud - 云托管版本（可申请 MCP.so）
+**适合：希望在 MCP Playground 中使用**
 
-适合需要定制功能的开发者：
+- **技术栈**：TypeScript + @chatmcp/sdk
+- **特点**：支持 stdio 和 REST 双传输模式
+- **部署**：可提交到 MCP.so 官方托管
+- **优势**：无需本地安装，在线即用
+
+基于 `ohcard-npx-pack` 改进，符合 MCP.so 托管要求：
+- 使用 `getParamValue` 进行参数处理
+- 支持 REST API 模式
+- 包含 Dockerfile 和 chatmcp.yaml 配置
+
+### 4. 🐳 cloud-server - Docker 云部署（已废弃）
+**状态：实验性项目，部署失败**
+
+- **原计划**：在云服务器上通过 Docker 部署 MCP 服务器
+- **问题**：MCP 协议主要设计为本地 stdio 通信，云端部署存在技术障碍
+- **结果**：项目已废弃，保留作为学习参考
+
+## 📊 方案对比
+
+| 特性 | FastMCP | NPX包 | 云托管 | Docker云部署 |
+|------|---------|-------|--------|-------------|
+| **部署难度** | 简单 | 极简 | 中等 | 复杂 |
+| **使用便利性** | 中等 | 极高 | 高 | 低 |
+| **技术门槛** | 低 | 无 | 中等 | 高 |
+| **适用场景** | 开发学习 | 日常使用 | 在线体验 | 已废弃 |
+| **维护成本** | 低 | 低 | 中等 | 高 |
+| **扩展性** | 高 | 中等 | 中等 | 高 |
+| **状态** | ✅ 稳定 | ✅ 推荐 | ✅ 可用 | ❌ 废弃 |
+
+## 🎯 功能特性
+
+所有可用版本都提供以下完整功能：
+
+### 核心工具
+| 工具名称 | 功能描述 | 参数 |
+|---------|----------|------|
+| `what_is_oh_cards` | 获取 OH 卡的详细介绍 | 无 |
+| `get_oh_card_process` | 获取 OH 卡抽取流程指导 | 无 |
+| `draw_oh_card` | 随机抽取一张 OH 卡 | `intention`（可选）|
+| `get_guidance_questions` | 获取引导问题帮助探索 | `question_type`（可选）|
+| `get_all_question_types` | 查看所有引导问题类型 | 无 |
+| `get_all_cards_preview` | 预览所有 OH 卡图片 | 无 |
+
+### 引导问题类型
+- **观察感受**：帮助观察卡牌并感受第一印象
+- **深入探索**：引导深入挖掘卡牌的细节和含义
+- **情境代入**：让你融入卡牌情境
+- **内心连接**：建立卡牌与内心世界的联系
+- **启发行动**：从卡牌中获得实际的生活指导
+
+## 🎮 使用流程
+
+1. **设定意图**：明确你想要探索的问题或困惑
+2. **抽取卡牌**：使用 `draw_oh_card` 随机抽取一张 OH 卡
+3. **观察感受**：仔细观察卡牌图像，记录第一印象
+4. **引导探索**：通过 `get_guidance_questions` 获取引导问题
+5. **深入思考**：回答引导问题，探索内心声音
+6. **获得洞察**：总结这次体验带来的启发和洞察
+
+## 🛠️ 快速开始
+
+### 推荐方案：NPX 包（零配置）
 
 ```bash
-# 进入FastMCP方案目录
+# 一键启动
+npx @cosmowind/ohcard-cloud-mcp
+```
+
+### 开发者方案：FastMCP
+
+```bash
 cd ohcard-fastmcp
-
-# 安装依赖
 pip install -r requirements.txt
-
-# 启动服务器
 python ohcard.py
 ```
 
-详细文档请参考：[FastMCP实现方案](ohcard-fastmcp/readme_fastmcp.md)
+### 在线体验：云托管版本
 
-## 功能特性
+等待 MCP.so 审核通过后，可在 MCP Playground 中直接使用。
 
-无论选择哪种实现方案，都提供以下完整功能：
-
-### 核心功能
-| 功能名称 | 描述 |
-|---------|------|
-| `what_is_oh_cards` | 介绍什么是OH卡 |
-| `get_oh_card_process` | 获取OH卡抽取流程 |
-| `draw_oh_card` | 抽取一张OH卡 |
-| `get_guidance_questions` | 获取引导问题来帮助用户探索卡牌 |
-| `get_all_question_types` | 获取所有引导问题类型 |
-| `get_all_cards_preview` | 获取所有OH卡的预览信息 |
-
-### 使用流程
-
-1. **确定心中的卡点**：思考你最近遇到的困惑或问题
-2. **抽取OH卡**：使用`draw_oh_card`功能抽取一张卡牌
-3. **问题引导**：通过`get_guidance_questions`获取引导问题
-4. **寻找启发**：深入思考并回答引导问题，发现内在智慧
-5. **完成体验**：总结这次抽卡体验给你的启发和洞察
-
-## 选择指南
-
-### 选择NPX方案，如果你：
-- 想要快速体验OH卡功能
-- 不想配置复杂的Python环境
-- 希望一条命令就能使用
-- 对功能定制需求不高
-
-### 选择FastMCP方案，如果你：
-- 是Python开发者
-- 需要定制OH卡功能
-- 想要深度控制服务器逻辑
-- 计划添加新功能或修改现有功能
-
-## 示例用法
-
-在Claude Desktop中配置好后，你可以这样使用：
+## 📝 示例对话
 
 ```
-我：我最近在工作上遇到一些困惑，想用OH卡来探索一下内心的声音。
+用户：我最近在工作上遇到一些困惑，想用 OH 卡来探索一下内心的声音。
 
-Claude：我来帮你使用OH卡进行内心探索。让我先为你抽取一张OH卡。
+Claude：我来帮你使用 OH 卡进行内心探索。让我先为你抽取一张 OH 卡。
 
-[调用 draw_oh_card 功能]
+[调用 draw_oh_card 工具]
 
-你抽到的OH卡是：[显示卡牌图像]
+你抽到的OH卡是xxx（链接）...
 
-这张卡牌想告诉你什么呢？让我为你提供一些引导问题来深入探索...
+现在让我为你提供一些引导问题来深入探索这张卡的含义：
 
-[调用 get_guidance_questions 功能]
+[调用 get_guidance_questions 工具]
+
+1. 当你看到这张图片时，你的第一感受是什么？
+2. 如果你现在身处其中，你会怎么做？
+...
 ```
 
-## 技术支持
+## 🔧 技术架构
 
-- **NPX方案问题**：请查看ohcard-npx-pack目录下的相关文档
-- **FastMCP方案问题**：请查看[FastMCP实现方案文档](ohcard-fastmcp/readme_fastmcp.md)
-- **通用问题**：请提交GitHub Issue
+### FastMCP 版本
+- **语言**：Python 3.8+
+- **框架**：FastMCP
+- **传输**：stdio
+- **依赖**：minimal
 
-## 贡献指南
+### NPX/云托管版本
+- **语言**：TypeScript/Node.js 18+
+- **框架**：@modelcontextprotocol/sdk
+- **传输**：stdio + REST（云托管）
+- **构建**：TypeScript 编译
+
+## 📚 文档链接
+
+- [FastMCP 实现文档](ohcard-fastmcp/readme_fastmcp.md)
+- [NPX 包开发指南](ohcard-npx-pack/README_npx.md)
+- [云托管配置说明](ohcard-cloud/托管说明.md)
+
+## 🤝 贡献指南
 
 欢迎为项目贡献代码或建议！
 
-1. Fork本项目
-2. 创建功能分支
-3. 提交更改
-4. 发起Pull Request
+1. Fork 本项目
+2. 选择合适的实现版本进行修改
+3. 创建功能分支
+4. 提交 Pull Request
 
-## 许可证
+## 📄 许可证
 
-MIT License - 详见LICENSE文件
+MIT License - 详见 [LICENSE](LICENSE) 文件
 
-## 相关链接
+## 🔗 相关链接
 
 - [Model Context Protocol (MCP)](https://modelcontextprotocol.io/)
 - [Claude Desktop](https://claude.ai/desktop)
-- [FastMCP框架](https://github.com/microsoft/FastMCP)
-- [NPM包地址](https://www.npmjs.com/package/@cosmowind/ohcard-mcp)
+- [FastMCP 框架](https://github.com/microsoft/FastMCP)
+- [NPM 包地址](https://www.npmjs.com/package/@cosmowind/ohcard-cloud-mcp)
+- [MCP.so 官网](https://mcp.so/)
+
+## 🌟 项目亮点
+
+- **多方案支持**：从简单的 Python 脚本到云端托管，满足不同需求
+- **零配置使用**：NPX 包提供一键启动体验
+- **专业心理工具**：基于成熟的 OH 卡心理投射理论
+- **开源友好**：MIT 许可证，欢迎社区贡献
+- **MCP 生态**：积极参与 MCP 生态建设
 
 ---
 
-**选择最适合你的方案开始OH卡探索之旅吧！** ✨ 
+**选择最适合你的方案，开始 OH 卡探索之旅吧！** ✨
+
+> 💡 **推荐使用顺序**：NPX 包（日常使用）→ FastMCP（学习开发）→ 云托管（在线体验）
